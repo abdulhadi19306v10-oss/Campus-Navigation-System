@@ -1,0 +1,27 @@
+# Visual Studio template gitignore
+# Source: https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+
+## Ignore Visual Studio Temporary Files and Build Results
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.db
+*.opendb
+
+# Compiled Object files
+*.obj
+*.ilk
+*.pdb
+*.tlog
+*.lastbuildstate
+*.idb
+*.dep
