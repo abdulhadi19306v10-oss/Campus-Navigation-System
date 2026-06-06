@@ -43,6 +43,7 @@ public:
     int getVertexId(const string& name) const;
     int getVertexCount() const;
     vector<pair<int, string>> getVerticesList() const;
+    vector<pair<pair<int, int>, double>> getEdgesList() const;
 
     bool dijkstra(int srcId, int destId, vector<int>& path, double& totalDistance) const;
     void bfs(int startId, vector<int>& visitedOrder) const;

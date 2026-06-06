@@ -1,0 +1,8 @@
+2|Admin Block|Admin|Central administrative offices, admissions office, and registrar.
+8|Auditorium|Facility|Large hall for guest lectures, cultural events, and orientations.
+3|Central Cafeteria|Cafeteria|Offers a variety of meals, snacks, and drinks for students.
+5|Central Library|Academic|Home to over 50,000 books, research papers, and study spaces.
+4|Computer Science Dept|Academic|State-of-the-art computer labs, classrooms, and faculty offices.
+1|Main Gate|Gate|The primary entry and exit point of the university campus.
+6|Sports Complex|Sports|Includes a gymnasium, basketball court, and outdoor athletics track.
+7|Student Hostel|Housing|Residential facility housing undergraduate and postgraduate students.

@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <thread>
 #include <chrono>
+#include <fstream>
+#include <sstream>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -131,6 +133,90 @@ void initializeCampusData() {
     detailsLookup.insert("Auditorium", "Booking required 1 week in advance through Admin Block. Capacity: 500 seats.");
 }
 
+const string LOCATIONS_FILE = "locations.txt";
+const string EDGES_FILE = "edges.txt";
+
+void saveData() {
+    ofstream locFile(LOCATIONS_FILE);
+    if (locFile.is_open()) {
+        vector<Location> locations = locationDirectory.getAllLocationsSorted();
+        for (const auto& loc : locations) {
+            locFile << loc.id << "|" << loc.name << "|" << loc.category << "|" << loc.description << "\n";
+        }
+        locFile.close();
+    } else {
+        cerr << RED << "[Error] Could not open " << LOCATIONS_FILE << " for writing." << RESET << endl;
+    }
+
+    ofstream edgeFile(EDGES_FILE);
+    if (edgeFile.is_open()) {
+        vector<pair<pair<int, int>, double>> edges = campusMap.getEdgesList();
+        for (const auto& edge : edges) {
+            edgeFile << edge.first.first << "|" << edge.first.second << "|" << edge.second << "\n";
+        }
+        edgeFile.close();
+    } else {
+        cerr << RED << "[Error] Could not open " << EDGES_FILE << " for writing." << RESET << endl;
+    }
+}
+
+void loadData() {
+    ifstream locFile(LOCATIONS_FILE);
+    ifstream edgeFile(EDGES_FILE);
+
+    if (!locFile.good() || !edgeFile.good()) {
+        cout << YELLOW << "[!] Persistent data files not found. Initializing with default campus data..." << RESET << endl;
+        if (locFile.is_open()) locFile.close();
+        if (edgeFile.is_open()) edgeFile.close();
+        
+        initializeCampusData();
+        saveData();
+        return;
+    }
+
+    campusMap.clear();
+    locationDirectory.clear();
+    detailsLookup.clear();
+
+    string line;
+    while (getline(locFile, line)) {
+        if (line.empty()) continue;
+        stringstream ss(line);
+        string idStr, name, category, description;
+        if (getline(ss, idStr, '|') &&
+            getline(ss, name, '|') &&
+            getline(ss, category, '|') &&
+            getline(ss, description)) {
+            
+            int id = stoi(idStr);
+            Location loc = {name, description, category, id};
+            locationDirectory.insert(loc);
+            campusMap.addVertex(id, name);
+            detailsLookup.insert(name, description);
+        }
+    }
+    locFile.close();
+
+    while (getline(edgeFile, line)) {
+        if (line.empty()) continue;
+        stringstream ss(line);
+        string srcIdStr, destIdStr, weightStr;
+        if (getline(ss, srcIdStr, '|') &&
+            getline(ss, destIdStr, '|') &&
+            getline(ss, weightStr)) {
+            
+            int srcId = stoi(srcIdStr);
+            int destId = stoi(destIdStr);
+            double weight = stod(weightStr);
+            campusMap.addEdge(srcId, destId, weight);
+        }
+    }
+    edgeFile.close();
+    
+    cout << GREEN << "[✓] Successfully loaded campus data from persistent storage." << RESET << endl;
+    this_thread::sleep_for(chrono::milliseconds(800));
+}
+
 // Press Enter to Continue prompt
 void pressEnter() {
     cout << WHITE << "\nPress Enter to return to menu...";
@@ -140,7 +226,7 @@ void pressEnter() {
 
 int main() {
     enableVirtualTerminalColors();
-    initializeCampusData();
+    loadData();
 
     while (true) {
         clearScreen();
@@ -161,6 +247,9 @@ int main() {
 
         int choice;
         if (!(cin >> choice)) {
+            if (cin.eof()) {
+                break;
+            }
             cin.clear();
             cin.ignore(10000, '\n');
             continue;
@@ -288,6 +377,7 @@ int main() {
 
                         cout << GREEN << "\n[✓] Location added successfully!" << RESET << endl;
                         cout << "Note: Automatically linked to Admin Block (distance 200m) for routing." << endl;
+                        saveData();
                     }
                 } else if (subChoice == 3) {
                     string targetName;
@@ -300,6 +390,7 @@ int main() {
                         campusMap.removeVertex(l.id);
                         detailsLookup.remove(targetName);
                         cout << GREEN << "\n[✓] Location \"" << targetName << "\" successfully removed!" << RESET << endl;
+                        saveData();
                     } else {
                         cout << RED << "\n[Error] Location not found in database!" << endl;
                     }
@@ -489,7 +580,7 @@ int main() {
 
             default:
                 cout << RED << "\n[Error] Invalid choice! Please select 1-8." << RESET << endl;
-                this_thread::sleep_for(milliseconds(1000));
+                this_thread::sleep_for(chrono::milliseconds(1000));
                 break;
         }
     }

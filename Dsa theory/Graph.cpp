@@ -190,6 +190,22 @@ vector<pair<int, string>> Graph::getVerticesList() const {
     return list;
 }
 
+vector<pair<pair<int, int>, double>> Graph::getEdgesList() const {
+    vector<pair<pair<int, int>, double>> list;
+    VertexNode* curr = verticesHead;
+    while (curr != nullptr) {
+        Edge* edge = curr->edgeHead;
+        while (edge != nullptr) {
+            if (curr->id < edge->destId) {
+                list.push_back({{curr->id, edge->destId}, edge->weight});
+            }
+            edge = edge->next;
+        }
+        curr = curr->next;
+    }
+    return list;
+}
+
 bool Graph::dijkstra(int srcId, int destId, vector<int>& path, double& totalDistance) const {
     path.clear();
     totalDistance = 0.0;
