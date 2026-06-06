@@ -32,6 +32,10 @@ using namespace std;
 // Function to enable virtual terminal processing on Windows for ANSI colors
 void enableVirtualTerminalColors() {
 #ifdef _WIN32
+    // Set console output and input code pages to UTF-8 to display Unicode characters correctly
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hOut != INVALID_HANDLE_VALUE) {
         DWORD dwMode = 0;

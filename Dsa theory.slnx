@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Dsa theory/Dsa theory.vcxproj" />
+  <Project Path="Dsa theory/Dsa theory.vcxproj" Id="dc33a49f-d460-4a54-9bed-463865ceffe3" />
 </Solution>
