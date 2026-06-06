@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-#include <thread>
-#include <chrono>
 #include <fstream>
 #include <sstream>
 
@@ -73,8 +71,6 @@ void simulateTravel(const vector<int>& path) {
     cout << YELLOW << "\n[!] Starting travel simulation..." << RESET << endl;
     for (size_t i = 0; i < path.size(); i++) {
         cout << GREEN << " -> " << campusMap.getVertexName(path[i]) << RESET;
-        cout.flush();
-        this_thread::sleep_for(chrono::milliseconds(500));
     }
     cout << GREEN << "\n[✓] Arrived safely at your destination!" << RESET << endl;
 }
@@ -84,53 +80,6 @@ void printLocationBrief(const Location& loc) {
     cout << "  • " << CYAN << left << setw(25) << loc.name << RESET
               << MAGENTA << setw(15) << loc.category << RESET
               << " (ID: " << loc.id << ")" << endl;
-}
-
-// Initialize system with pre-populated campus data
-void initializeCampusData() {
-    // 1. Add Vertices to Graph
-    campusMap.addVertex(1, "Main Gate");
-    campusMap.addVertex(2, "Admin Block");
-    campusMap.addVertex(3, "Central Cafeteria");
-    campusMap.addVertex(4, "Computer Science Dept");
-    campusMap.addVertex(5, "Central Library");
-    campusMap.addVertex(6, "Sports Complex");
-    campusMap.addVertex(7, "Student Hostel");
-    campusMap.addVertex(8, "Auditorium");
-
-    // 2. Add Edges to Graph
-    campusMap.addEdge(1, 2, 100.0); // Main Gate <-> Admin Block
-    campusMap.addEdge(1, 5, 250.0); // Main Gate <-> Central Library
-    campusMap.addEdge(2, 3, 150.0); // Admin Block <-> Cafeteria
-    campusMap.addEdge(2, 5, 200.0); // Admin Block <-> Library
-    campusMap.addEdge(3, 4, 120.0); // Cafeteria <-> CS Dept
-    campusMap.addEdge(3, 8, 180.0); // Cafeteria <-> Auditorium
-    campusMap.addEdge(4, 5, 80.0);  // CS Dept <-> Library
-    campusMap.addEdge(4, 6, 220.0); // CS Dept <-> Sports Complex
-    campusMap.addEdge(4, 7, 300.0); // CS Dept <-> Student Hostel
-    campusMap.addEdge(5, 6, 150.0); // Library <-> Sports Complex
-    campusMap.addEdge(6, 7, 180.0); // Sports Complex <-> Hostel
-    campusMap.addEdge(8, 7, 250.0); // Auditorium <-> Hostel
-
-    // 3. Add to BST (Location Management)
-    locationDirectory.insert({"Main Gate", "The primary entry and exit point of the university campus.", "Gate", 1});
-    locationDirectory.insert({"Admin Block", "Central administrative offices, admissions office, and registrar.", "Admin", 2});
-    locationDirectory.insert({"Central Cafeteria", "Offers a variety of meals, snacks, and drinks for students.", "Cafeteria", 3});
-    locationDirectory.insert({"Computer Science Dept", "State-of-the-art computer labs, classrooms, and faculty offices.", "Academic", 4});
-    locationDirectory.insert({"Central Library", "Home to over 50,000 books, research papers, and study spaces.", "Academic", 5});
-    locationDirectory.insert({"Sports Complex", "Includes a gymnasium, basketball court, and outdoor athletics track.", "Sports", 6});
-    locationDirectory.insert({"Student Hostel", "Residential facility housing undergraduate and postgraduate students.", "Housing", 7});
-    locationDirectory.insert({"Auditorium", "Large hall for guest lectures, cultural events, and orientations.", "Facility", 8});
-
-    // 4. Add metadata to HashTable (Fast Lookup)
-    detailsLookup.insert("Main Gate", "Open 24/7. Visitors must present identification. Security staff present.");
-    detailsLookup.insert("Admin Block", "Working hours: 09:00 AM - 05:00 PM (Monday-Friday). Admissions desk on Ground Floor.");
-    detailsLookup.insert("Central Cafeteria", "Working hours: 08:00 AM - 09:00 PM. Offers vegetarian and non-vegetarian menus.");
-    detailsLookup.insert("Computer Science Dept", "Open 08:00 AM - 06:00 PM. High-speed Wi-Fi and specialized AI laboratories available.");
-    detailsLookup.insert("Central Library", "Working hours: 08:00 AM - 10:00 PM. Silent study zones on the 2nd floor.");
-    detailsLookup.insert("Sports Complex", "Open 06:00 AM - 09:00 PM. Equipment rental requires student ID card.");
-    detailsLookup.insert("Student Hostel", "24/7 access for residents. Curfew time is 10:00 PM for visitors.");
-    detailsLookup.insert("Auditorium", "Booking required 1 week in advance through Admin Block. Capacity: 500 seats.");
 }
 
 const string LOCATIONS_FILE = "locations.txt";
@@ -165,12 +114,14 @@ void loadData() {
     ifstream edgeFile(EDGES_FILE);
 
     if (!locFile.good() || !edgeFile.good()) {
-        cout << YELLOW << "[!] Persistent data files not found. Initializing with default campus data..." << RESET << endl;
+        cout << YELLOW << "[!] Persistent data files not found. Starting with a clean database..." << RESET << endl;
         if (locFile.is_open()) locFile.close();
         if (edgeFile.is_open()) edgeFile.close();
         
-        initializeCampusData();
-        saveData();
+        ofstream newLoc(LOCATIONS_FILE);
+        newLoc.close();
+        ofstream newEdge(EDGES_FILE);
+        newEdge.close();
         return;
     }
 
@@ -214,7 +165,6 @@ void loadData() {
     edgeFile.close();
     
     cout << GREEN << "[✓] Successfully loaded campus data from persistent storage." << RESET << endl;
-    this_thread::sleep_for(chrono::milliseconds(800));
 }
 
 // Press Enter to Continue prompt
@@ -580,7 +530,7 @@ int main() {
 
             default:
                 cout << RED << "\n[Error] Invalid choice! Please select 1-8." << RESET << endl;
-                this_thread::sleep_for(chrono::milliseconds(1000));
+                pressEnter();
                 break;
         }
     }
