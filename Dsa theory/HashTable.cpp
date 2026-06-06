@@ -1,5 +1,7 @@
 #include "HashTable.h"
 
+using namespace std;
+
 HashTable::HashTable(int size) : tableSize(size), count(0) {
     table = new HashNode*[tableSize];
     for (int i = 0; i < tableSize; i++) {
@@ -12,7 +14,7 @@ HashTable::~HashTable() {
     delete[] table;
 }
 
-int HashTable::hashFunction(const std::string& key) const {
+int HashTable::hashFunction(const string& key) const {
     unsigned long hash = 5381;
     for (char c : key) {
         hash = ((hash << 5) + hash) + c; // hash * 33 + c
@@ -20,7 +22,7 @@ int HashTable::hashFunction(const std::string& key) const {
     return hash % tableSize;
 }
 
-void HashTable::insert(const std::string& key, const std::string& value) {
+void HashTable::insert(const string& key, const string& value) {
     int index = hashFunction(key);
     HashNode* prev = nullptr;
     HashNode* curr = table[index];
@@ -45,7 +47,7 @@ void HashTable::insert(const std::string& key, const std::string& value) {
     }
 }
 
-std::string HashTable::search(const std::string& key) const {
+string HashTable::search(const string& key) const {
     int index = hashFunction(key);
     HashNode* curr = table[index];
     while (curr != nullptr) {
@@ -57,7 +59,7 @@ std::string HashTable::search(const std::string& key) const {
     return ""; // Not found
 }
 
-bool HashTable::remove(const std::string& key) {
+bool HashTable::remove(const string& key) {
     int index = hashFunction(key);
     HashNode* prev = nullptr;
     HashNode* curr = table[index];

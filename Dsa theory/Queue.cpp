@@ -1,5 +1,7 @@
 #include "Queue.h"
 
+using namespace std;
+
 Queue::Queue() : frontNode(nullptr), rearNode(nullptr), count(0) {}
 
 Queue::~Queue() {

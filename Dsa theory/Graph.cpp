@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <algorithm>
 
+using namespace std;
+
 Graph::Graph() : verticesHead(nullptr), vertexCount(0) {}
 
 Graph::~Graph() {
@@ -29,7 +31,7 @@ void Graph::clearEdges(Edge* head) {
     }
 }
 
-void Graph::addVertex(int id, const std::string& name) {
+void Graph::addVertex(int id, const string& name) {
     if (findVertex(id) != nullptr) {
         return; // Vertex already exists
     }
@@ -158,12 +160,12 @@ bool Graph::hasVertex(int id) const {
     return findVertex(id) != nullptr;
 }
 
-std::string Graph::getVertexName(int id) const {
+string Graph::getVertexName(int id) const {
     VertexNode* v = findVertex(id);
     return v != nullptr ? v->name : "";
 }
 
-int Graph::getVertexId(const std::string& name) const {
+int Graph::getVertexId(const string& name) const {
     VertexNode* curr = verticesHead;
     while (curr != nullptr) {
         if (curr->name == name) {
@@ -178,8 +180,8 @@ int Graph::getVertexCount() const {
     return vertexCount;
 }
 
-std::vector<std::pair<int, std::string>> Graph::getVerticesList() const {
-    std::vector<std::pair<int, std::string>> list;
+vector<pair<int, string>> Graph::getVerticesList() const {
+    vector<pair<int, string>> list;
     VertexNode* curr = verticesHead;
     while (curr != nullptr) {
         list.push_back({curr->id, curr->name});
@@ -188,7 +190,7 @@ std::vector<std::pair<int, std::string>> Graph::getVerticesList() const {
     return list;
 }
 
-bool Graph::dijkstra(int srcId, int destId, std::vector<int>& path, double& totalDistance) const {
+bool Graph::dijkstra(int srcId, int destId, vector<int>& path, double& totalDistance) const {
     path.clear();
     totalDistance = 0.0;
 
@@ -197,7 +199,7 @@ bool Graph::dijkstra(int srcId, int destId, std::vector<int>& path, double& tota
     }
 
     // Get all vertex IDs
-    std::vector<int> allIds;
+    vector<int> allIds;
     VertexNode* curr = verticesHead;
     while (curr != nullptr) {
         allIds.push_back(curr->id);
@@ -205,9 +207,9 @@ bool Graph::dijkstra(int srcId, int destId, std::vector<int>& path, double& tota
     }
 
     int n = (int)allIds.size();
-    std::vector<double> dist(n, 1e9);
-    std::vector<int> parent(n, -1);
-    std::vector<bool> visited(n, false);
+    vector<double> dist(n, 1e9);
+    vector<int> parent(n, -1);
+    vector<bool> visited(n, false);
 
     // Helper lambda to find index by ID
     auto getIdx = [&](int id) {
@@ -273,18 +275,18 @@ bool Graph::dijkstra(int srcId, int destId, std::vector<int>& path, double& tota
         path.push_back(allIds[currIdx]);
         currIdx = parent[currIdx];
     }
-    std::reverse(path.begin(), path.end());
+    reverse(path.begin(), path.end());
     return true;
 }
 
-void Graph::bfs(int startId, std::vector<int>& visitedOrder) const {
+void Graph::bfs(int startId, vector<int>& visitedOrder) const {
     visitedOrder.clear();
     if (findVertex(startId) == nullptr) {
         return;
     }
 
     // Get all vertex IDs to track visited status
-    std::vector<int> allIds;
+    vector<int> allIds;
     VertexNode* curr = verticesHead;
     while (curr != nullptr) {
         allIds.push_back(curr->id);
@@ -292,7 +294,7 @@ void Graph::bfs(int startId, std::vector<int>& visitedOrder) const {
     }
 
     int n = (int)allIds.size();
-    std::vector<bool> visited(n, false);
+    vector<bool> visited(n, false);
 
     auto getIdx = [&](int id) {
         for (int i = 0; i < n; i++) {
@@ -301,7 +303,7 @@ void Graph::bfs(int startId, std::vector<int>& visitedOrder) const {
         return -1;
     };
 
-    std::vector<int> queue;
+    vector<int> queue;
     queue.push_back(startId);
     visited[getIdx(startId)] = true;
 
@@ -325,7 +327,7 @@ void Graph::bfs(int startId, std::vector<int>& visitedOrder) const {
     }
 }
 
-void Graph::dfsHelper(int currId, std::vector<int>& visitedOrder, std::vector<bool>& visited, const std::vector<int>& allIds) const {
+void Graph::dfsHelper(int currId, vector<int>& visitedOrder, vector<bool>& visited, const vector<int>& allIds) const {
     auto getIdx = [&](int id) {
         for (int i = 0; i < (int)allIds.size(); i++) {
             if (allIds[i] == id) return i;
@@ -354,13 +356,13 @@ void Graph::dfsHelper(int currId, std::vector<int>& visitedOrder, std::vector<bo
     }
 }
 
-void Graph::dfs(int startId, std::vector<int>& visitedOrder) const {
+void Graph::dfs(int startId, vector<int>& visitedOrder) const {
     visitedOrder.clear();
     if (findVertex(startId) == nullptr) {
         return;
     }
 
-    std::vector<int> allIds;
+    vector<int> allIds;
     VertexNode* curr = verticesHead;
     while (curr != nullptr) {
         allIds.push_back(curr->id);
@@ -368,7 +370,7 @@ void Graph::dfs(int startId, std::vector<int>& visitedOrder) const {
     }
 
     int n = (int)allIds.size();
-    std::vector<bool> visited(n, false);
+    vector<bool> visited(n, false);
 
     dfsHelper(startId, visitedOrder, visited, allIds);
 }
@@ -376,14 +378,14 @@ void Graph::dfs(int startId, std::vector<int>& visitedOrder) const {
 void Graph::printGraph() const {
     VertexNode* curr = verticesHead;
     while (curr != nullptr) {
-        std::cout << curr->name << " (ID: " << curr->id << ") -> ";
+        cout << curr->name << " (ID: " << curr->id << ") -> ";
         Edge* edge = curr->edgeHead;
         while (edge != nullptr) {
-            std::cout << getVertexName(edge->destId) << " (" << edge->weight << "m)";
-            if (edge->next != nullptr) std::cout << ", ";
+            cout << getVertexName(edge->destId) << " (" << edge->weight << "m)";
+            if (edge->next != nullptr) cout << ", ";
             edge = edge->next;
         }
-        std::cout << std::endl;
+        cout << endl;
         curr = curr->next;
     }
 }

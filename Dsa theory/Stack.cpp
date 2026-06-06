@@ -1,31 +1,33 @@
 #include "Stack.h"
 
+using namespace std;
+
 Stack::Stack() : topNode(nullptr), count(0) {}
 
 Stack::~Stack() {
     clear();
 }
 
-void Stack::push(const std::string& item) {
+void Stack::push(const string& item) {
     StackNode* newNode = new StackNode(item);
     newNode->next = topNode;
     topNode = newNode;
     count++;
 }
 
-std::string Stack::pop() {
+string Stack::pop() {
     if (isEmpty()) {
         return "";
     }
     StackNode* temp = topNode;
-    std::string data = temp->data;
+    string data = temp->data;
     topNode = topNode->next;
     delete temp;
     count--;
     return data;
 }
 
-std::string Stack::peek() const {
+string Stack::peek() const {
     if (isEmpty()) {
         return "";
     }

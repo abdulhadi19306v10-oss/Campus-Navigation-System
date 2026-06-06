@@ -1,7 +1,9 @@
 #include "Sorting.h"
 
-int Sorting::partition(std::vector<Location>& arr, int low, int high) {
-    std::string pivot = arr[high].name;
+using namespace std;
+
+int Sorting::partition(vector<Location>& arr, int low, int high) {
+    string pivot = arr[high].name;
     int i = (low - 1);
 
     for (int j = low; j < high; j++) {
@@ -20,7 +22,7 @@ int Sorting::partition(std::vector<Location>& arr, int low, int high) {
     return (i + 1);
 }
 
-void Sorting::quickSortByName(std::vector<Location>& arr, int low, int high) {
+void Sorting::quickSortByName(vector<Location>& arr, int low, int high) {
     if (low < high) {
         int pi = partition(arr, low, high);
 
@@ -29,7 +31,7 @@ void Sorting::quickSortByName(std::vector<Location>& arr, int low, int high) {
     }
 }
 
-int Sorting::binarySearchByName(const std::vector<Location>& arr, const std::string& name) {
+int Sorting::binarySearchByName(const vector<Location>& arr, const string& name) {
     int low = 0;
     int high = (int)arr.size() - 1;
 

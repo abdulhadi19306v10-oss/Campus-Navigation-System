@@ -1,5 +1,7 @@
 #include "BST.h"
 
+using namespace std;
+
 BST::BST() : root(nullptr), count(0) {}
 
 BST::~BST() {
@@ -31,7 +33,7 @@ BSTNode* BST::findMin(BSTNode* node) const {
     return node;
 }
 
-BSTNode* BST::removeHelper(BSTNode* node, const std::string& name, bool& success) {
+BSTNode* BST::removeHelper(BSTNode* node, const string& name, bool& success) {
     if (node == nullptr) {
         success = false;
         return nullptr;
@@ -67,13 +69,13 @@ BSTNode* BST::removeHelper(BSTNode* node, const std::string& name, bool& success
     return node;
 }
 
-bool BST::remove(const std::string& name) {
+bool BST::remove(const string& name) {
     bool success = false;
     root = removeHelper(root, name, success);
     return success;
 }
 
-BSTNode* BST::searchHelper(BSTNode* node, const std::string& name) const {
+BSTNode* BST::searchHelper(BSTNode* node, const string& name) const {
     if (node == nullptr || node->data.name == name) {
         return node;
     }
@@ -83,7 +85,7 @@ BSTNode* BST::searchHelper(BSTNode* node, const std::string& name) const {
     return searchHelper(node->right, name);
 }
 
-bool BST::search(const std::string& name, Location& outLoc) const {
+bool BST::search(const string& name, Location& outLoc) const {
     BSTNode* result = searchHelper(root, name);
     if (result != nullptr) {
         outLoc = result->data;
@@ -104,7 +106,7 @@ void BST::inorderTraversal(void (*visit)(const Location&)) const {
     inorderHelper(root, visit);
 }
 
-void BST::collectHelper(BSTNode* node, std::vector<Location>& list) const {
+void BST::collectHelper(BSTNode* node, vector<Location>& list) const {
     if (node != nullptr) {
         collectHelper(node->left, list);
         list.push_back(node->data);
@@ -112,8 +114,8 @@ void BST::collectHelper(BSTNode* node, std::vector<Location>& list) const {
     }
 }
 
-std::vector<Location> BST::getAllLocationsSorted() const {
-    std::vector<Location> list;
+vector<Location> BST::getAllLocationsSorted() const {
+    vector<Location> list;
     collectHelper(root, list);
     return list;
 }

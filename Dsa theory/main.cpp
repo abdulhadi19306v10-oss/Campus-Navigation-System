@@ -17,6 +17,8 @@
 #include "Graph.h"
 #include "Sorting.h"
 
+using namespace std;
+
 // Color codes for premium console output
 #define RESET   "\033[0m"
 #define BOLD    "\033[1m"
@@ -52,7 +54,7 @@ int requestCounter = 100; // Counter for support request IDs
 
 // Print a horizontal separator line
 void printSeparator() {
-    std::cout << WHITE << "══════════════════════════════════════════════════════════════" << RESET << std::endl;
+    cout << WHITE << "══════════════════════════════════════════════════════════════" << RESET << endl;
 }
 
 // Function to clear screen (cross-platform helper)
@@ -65,21 +67,21 @@ void clearScreen() {
 }
 
 // Simulates travel animation
-void simulateTravel(const std::vector<int>& path) {
-    std::cout << YELLOW << "\n[!] Starting travel simulation..." << RESET << std::endl;
+void simulateTravel(const vector<int>& path) {
+    cout << YELLOW << "\n[!] Starting travel simulation..." << RESET << endl;
     for (size_t i = 0; i < path.size(); i++) {
-        std::cout << GREEN << " -> " << campusMap.getVertexName(path[i]) << RESET;
-        std::cout.flush();
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        cout << GREEN << " -> " << campusMap.getVertexName(path[i]) << RESET;
+        cout.flush();
+        this_thread::sleep_for(chrono::milliseconds(500));
     }
-    std::cout << GREEN << "\n[✓] Arrived safely at your destination!" << RESET << std::endl;
+    cout << GREEN << "\n[✓] Arrived safely at your destination!" << RESET << endl;
 }
 
 // Callback for BST traversal printing
 void printLocationBrief(const Location& loc) {
-    std::cout << "  • " << CYAN << std::left << std::setw(25) << loc.name << RESET
-              << MAGENTA << std::setw(15) << loc.category << RESET
-              << " (ID: " << loc.id << ")" << std::endl;
+    cout << "  • " << CYAN << left << setw(25) << loc.name << RESET
+              << MAGENTA << setw(15) << loc.category << RESET
+              << " (ID: " << loc.id << ")" << endl;
 }
 
 // Initialize system with pre-populated campus data
@@ -131,9 +133,9 @@ void initializeCampusData() {
 
 // Press Enter to Continue prompt
 void pressEnter() {
-    std::cout << WHITE << "\nPress Enter to return to menu...";
-    std::cin.ignore();
-    std::cin.get();
+    cout << WHITE << "\nPress Enter to return to menu...";
+    cin.ignore();
+    cin.get();
 }
 
 int main() {
@@ -142,101 +144,101 @@ int main() {
 
     while (true) {
         clearScreen();
-        std::cout << CYAN << BOLD;
-        std::cout << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-        std::cout << "║          SMART CAMPUS MANAGEMENT SYSTEM (DSA PROJECT)       ║" << std::endl;
-        std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-        std::cout << WHITE << "  [1] Navigation Module (Shortest Path & BFS/DFS)" << RESET << std::endl;
-        std::cout << WHITE << "  [2] Location Directory (BST In-Order list & Add/Delete)" << RESET << std::endl;
-        std::cout << WHITE << "  [3] Fast Details Lookup (HashTable Metadata)" << RESET << std::endl;
-        std::cout << WHITE << "  [4] History and Undo (Stack)" << RESET << std::endl;
-        std::cout << WHITE << "  [5] Student Support Queue (Queue)" << RESET << std::endl;
-        std::cout << WHITE << "  [6] Advanced Directory Search (QuickSort & Binary Search)" << RESET << std::endl;
-        std::cout << WHITE << "  [7] Print Campus Map Adjacency List" << RESET << std::endl;
-        std::cout << WHITE << "  [8] Exit System" << RESET << std::endl;
+        cout << CYAN << BOLD;
+        cout << "╔═════════════════════════════════════════════════════════════╗" << endl;
+        cout << "║          SMART CAMPUS MANAGEMENT SYSTEM (DSA PROJECT)       ║" << endl;
+        cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+        cout << WHITE << "  [1] Navigation Module (Shortest Path & BFS/DFS)" << RESET << endl;
+        cout << WHITE << "  [2] Location Directory (BST In-Order list & Add/Delete)" << RESET << endl;
+        cout << WHITE << "  [3] Fast Details Lookup (HashTable Metadata)" << RESET << endl;
+        cout << WHITE << "  [4] History and Undo (Stack)" << RESET << endl;
+        cout << WHITE << "  [5] Student Support Queue (Queue)" << RESET << endl;
+        cout << WHITE << "  [6] Advanced Directory Search (QuickSort & Binary Search)" << RESET << endl;
+        cout << WHITE << "  [7] Print Campus Map Adjacency List" << RESET << endl;
+        cout << WHITE << "  [8] Exit System" << RESET << endl;
         printSeparator();
-        std::cout << MAGENTA << "Select an option [1-8]: " << RESET;
+        cout << MAGENTA << "Select an option [1-8]: " << RESET;
 
         int choice;
-        if (!(std::cin >> choice)) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(10000, '\n');
             continue;
         }
 
         switch (choice) {
             case 1: { // Navigation Module
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                      NAVIGATION MODULE                      ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-                std::cout << "  [1] Find Shortest Path (Dijkstra)" << std::endl;
-                std::cout << "  [2] Graph Traversal BFS (Breadth-First Search)" << std::endl;
-                std::cout << "  [3] Graph Traversal DFS (Depth-First Search)" << std::endl;
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                      NAVIGATION MODULE                      ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+                cout << "  [1] Find Shortest Path (Dijkstra)" << endl;
+                cout << "  [2] Graph Traversal BFS (Breadth-First Search)" << endl;
+                cout << "  [3] Graph Traversal DFS (Depth-First Search)" << endl;
                 printSeparator();
-                std::cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
+                cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
                 
                 int subChoice;
-                std::cin >> subChoice;
+                cin >> subChoice;
 
                 if (subChoice == 1) {
-                    std::cout << "\nAvailable Locations:" << std::endl;
+                    cout << "\nAvailable Locations:" << endl;
                     auto verts = campusMap.getVerticesList();
                     for (const auto& v : verts) {
-                        std::cout << "  [" << v.first << "] " << v.second << std::endl;
+                        cout << "  [" << v.first << "] " << v.second << endl;
                     }
                     printSeparator();
                     int src, dest;
-                    std::cout << "Enter Source Location ID: ";
-                    std::cin >> src;
-                    std::cout << "Enter Destination Location ID: ";
-                    std::cin >> dest;
+                    cout << "Enter Source Location ID: ";
+                    cin >> src;
+                    cout << "Enter Destination Location ID: ";
+                    cin >> dest;
 
                     if (!campusMap.hasVertex(src) || !campusMap.hasVertex(dest)) {
-                        std::cout << RED << "\n[Error] Invalid location ID entered!" << RESET << std::endl;
+                        cout << RED << "\n[Error] Invalid location ID entered!" << endl;
                     } else {
-                        std::vector<int> path;
+                        vector<int> path;
                         double dist = 0.0;
                         if (campusMap.dijkstra(src, dest, path, dist)) {
-                            std::cout << GREEN << BOLD << "\n[Path Found!]" << RESET << std::endl;
-                            std::cout << "Total Route Distance: " << YELLOW << dist << " meters" << RESET << std::endl;
-                            std::cout << "Directions: ";
+                            cout << GREEN << BOLD << "\n[Path Found!]" << RESET << endl;
+                            cout << "Total Route Distance: " << YELLOW << dist << " meters" << RESET << endl;
+                            cout << "Directions: ";
                             for (size_t i = 0; i < path.size(); i++) {
-                                std::cout << campusMap.getVertexName(path[i]);
-                                if (i + 1 < path.size()) std::cout << " ➔ ";
+                                cout << campusMap.getVertexName(path[i]);
+                                if (i + 1 < path.size()) cout << " ➔ ";
                             }
-                            std::cout << std::endl;
+                            cout << endl;
 
                             // Add to search history stack
-                            std::string historyItem = "Route: " + campusMap.getVertexName(src) + " to " + campusMap.getVertexName(dest) + " (" + std::to_string((int)dist) + "m)";
+                            string historyItem = "Route: " + campusMap.getVertexName(src) + " to " + campusMap.getVertexName(dest) + " (" + to_string((int)dist) + "m)";
                             searchHistory.push(historyItem);
 
                             simulateTravel(path);
                         } else {
-                            std::cout << RED << "\n[Error] No path exists between the selected locations." << RESET << std::endl;
+                            cout << RED << "\n[Error] No path exists between the selected locations." << endl;
                         }
                     }
                 } else if (subChoice == 2 || subChoice == 3) {
                     int startId;
-                    std::cout << "Enter Starting Location ID: ";
-                    std::cin >> startId;
+                    cout << "Enter Starting Location ID: ";
+                    cin >> startId;
 
                     if (!campusMap.hasVertex(startId)) {
-                        std::cout << RED << "\n[Error] Location ID not found!" << RESET << std::endl;
+                        cout << RED << "\n[Error] Location ID not found!" << endl;
                     } else {
-                        std::vector<int> visited;
+                        vector<int> visited;
                         if (subChoice == 2) {
                             campusMap.bfs(startId, visited);
-                            std::cout << GREEN << "\n[BFS Traversal Order]:\n  " << RESET;
+                            cout << GREEN << "\n[BFS Traversal Order]:\n  " << RESET;
                         } else {
                             campusMap.dfs(startId, visited);
-                            std::cout << GREEN << "\n[DFS Traversal Order]:\n  " << RESET;
+                            cout << GREEN << "\n[DFS Traversal Order]:\n  " << RESET;
                         }
                         for (size_t i = 0; i < visited.size(); i++) {
-                            std::cout << campusMap.getVertexName(visited[i]);
-                            if (i + 1 < visited.size()) std::cout << " ➔ ";
+                            cout << campusMap.getVertexName(visited[i]);
+                            if (i + 1 < visited.size()) cout << " ➔ ";
                         }
-                        std::cout << std::endl;
+                        cout << endl;
                     }
                 }
                 pressEnter();
@@ -245,36 +247,36 @@ int main() {
 
             case 2: { // Location Directory
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                 LOCATION DIRECTORY (BST)                    ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-                std::cout << "  [1] List All Locations (Alphabetical Order)" << std::endl;
-                std::cout << "  [2] Add New Location" << std::endl;
-                std::cout << "  [3] Delete Location" << std::endl;
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                 LOCATION DIRECTORY (BST)                    ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+                cout << "  [1] List All Locations (Alphabetical Order)" << endl;
+                cout << "  [2] Add New Location" << endl;
+                cout << "  [3] Delete Location" << endl;
                 printSeparator();
-                std::cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
+                cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
 
                 int subChoice;
-                std::cin >> subChoice;
-                std::cin.ignore(); // Consume newline
+                cin >> subChoice;
+                cin.ignore(); // Consume newline
 
                 if (subChoice == 1) {
-                    std::cout << GREEN << "\nAlphabetical Campus Directory (In-Order Traversal):" << RESET << std::endl;
+                    cout << GREEN << "\nAlphabetical Campus Directory (In-Order Traversal):" << RESET << endl;
                     locationDirectory.inorderTraversal(printLocationBrief);
-                    std::cout << "Total Locations: " << locationDirectory.size() << std::endl;
+                    cout << "Total Locations: " << locationDirectory.size() << endl;
                 } else if (subChoice == 2) {
                     Location newLoc;
-                    std::cout << "Enter Location Name: ";
-                    std::getline(std::cin, newLoc.name);
-                    std::cout << "Enter Category (Academic, Cafeteria, Sports, Admin, Housing, etc.): ";
-                    std::getline(std::cin, newLoc.category);
-                    std::cout << "Enter Short Description: ";
-                    std::getline(std::cin, newLoc.description);
-                    std::cout << "Enter Unique ID for Graph Vertex: ";
-                    std::cin >> newLoc.id;
+                    cout << "Enter Location Name: ";
+                    getline(cin, newLoc.name);
+                    cout << "Enter Category (Academic, Cafeteria, Sports, Admin, Housing, etc.): ";
+                    getline(cin, newLoc.category);
+                    cout << "Enter Short Description: ";
+                    getline(cin, newLoc.description);
+                    cout << "Enter Unique ID for Graph Vertex: ";
+                    cin >> newLoc.id;
 
                     if (campusMap.hasVertex(newLoc.id)) {
-                        std::cout << RED << "\n[Error] ID already in use on campus map!" << RESET << std::endl;
+                        cout << RED << "\n[Error] ID already in use on campus map!" << endl;
                     } else {
                         // Insert into BST, Graph, and HashTable
                         locationDirectory.insert(newLoc);
@@ -284,22 +286,22 @@ int main() {
                         // Connect to Admin Block (Default connection) by default
                         campusMap.addEdge(newLoc.id, 2, 200.0);
 
-                        std::cout << GREEN << "\n[✓] Location added successfully!" << RESET << std::endl;
-                        std::cout << "Note: Automatically linked to Admin Block (distance 200m) for routing." << std::endl;
+                        cout << GREEN << "\n[✓] Location added successfully!" << RESET << endl;
+                        cout << "Note: Automatically linked to Admin Block (distance 200m) for routing." << endl;
                     }
                 } else if (subChoice == 3) {
-                    std::string targetName;
-                    std::cout << "Enter exact Location Name to delete: ";
-                    std::getline(std::cin, targetName);
+                    string targetName;
+                    cout << "Enter exact Location Name to delete: ";
+                    getline(cin, targetName);
 
                     Location l;
                     if (locationDirectory.search(targetName, l)) {
                         locationDirectory.remove(targetName);
                         campusMap.removeVertex(l.id);
                         detailsLookup.remove(targetName);
-                        std::cout << GREEN << "\n[✓] Location \"" << targetName << "\" successfully removed!" << RESET << std::endl;
+                        cout << GREEN << "\n[✓] Location \"" << targetName << "\" successfully removed!" << RESET << endl;
                     } else {
-                        std::cout << RED << "\n[Error] Location not found in database!" << RESET << std::endl;
+                        cout << RED << "\n[Error] Location not found in database!" << endl;
                     }
                 }
                 pressEnter();
@@ -308,24 +310,24 @@ int main() {
 
             case 3: { // Fast Details Lookup
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                 FAST DETAILS LOOKUP (HASH TABLE)            ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-                std::cin.ignore();
-                std::string searchKey;
-                std::cout << "Enter Location Name (e.g., Computer Science Dept): ";
-                std::getline(std::cin, searchKey);
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                 FAST DETAILS LOOKUP (HASH TABLE)            ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+                cin.ignore();
+                string searchKey;
+                cout << "Enter Location Name (e.g., Computer Science Dept): ";
+                getline(cin, searchKey);
 
-                std::string details = detailsLookup.search(searchKey);
+                string details = detailsLookup.search(searchKey);
                 if (!details.empty()) {
-                    std::cout << GREEN << "\n[Match Found in Hash Table!]" << RESET << std::endl;
-                    std::cout << BOLD << "Location: " << RESET << searchKey << std::endl;
-                    std::cout << BOLD << "Details & Metadata: " << RESET << details << std::endl;
+                    cout << GREEN << "\n[Match Found in Hash Table!]" << RESET << endl;
+                    cout << BOLD << "Location: " << RESET << searchKey << endl;
+                    cout << BOLD << "Details & Metadata: " << RESET << details << endl;
                     
                     searchHistory.push("Lookup: " + searchKey);
                 } else {
-                    std::cout << RED << "\n[Error] No detailed metadata found for this location name." << RESET << std::endl;
-                    std::cout << "Make sure to match the exact spelling and case (e.g., \"Central Library\")." << std::endl;
+                    cout << RED << "\n[Error] No detailed metadata found for this location name." << endl;
+                    cout << "Make sure to match the exact spelling and case (e.g., \"Central Library\")." << endl;
                 }
                 pressEnter();
                 break;
@@ -333,35 +335,35 @@ int main() {
 
             case 4: { // Search and Request History
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                SEARCH & LOOKUP HISTORY (STACK)              ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-                std::cout << "  [1] View History (Peek/Display)" << std::endl;
-                std::cout << "  [2] Undo Last Action (Pop)" << std::endl;
-                std::cout << "  [3] Clear All History" << std::endl;
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                SEARCH & LOOKUP HISTORY (STACK)              ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+                cout << "  [1] View History (Peek/Display)" << endl;
+                cout << "  [2] Undo Last Action (Pop)" << endl;
+                cout << "  [3] Clear All History" << endl;
                 printSeparator();
-                std::cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
+                cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
 
                 int subChoice;
-                std::cin >> subChoice;
+                cin >> subChoice;
 
                 if (subChoice == 1) {
                     if (searchHistory.isEmpty()) {
-                        std::cout << YELLOW << "\nHistory is currently empty." << RESET << std::endl;
+                        cout << YELLOW << "\nHistory is currently empty." << RESET << endl;
                     } else {
-                        std::cout << GREEN << "\nMost Recent Action: " << RESET << searchHistory.peek() << std::endl;
-                        std::cout << "Total items in stack: " << searchHistory.size() << std::endl;
+                        cout << GREEN << "\nMost Recent Action: " << RESET << searchHistory.peek() << endl;
+                        cout << "Total items in stack: " << searchHistory.size() << endl;
                     }
                 } else if (subChoice == 2) {
                     if (searchHistory.isEmpty()) {
-                        std::cout << RED << "\n[Error] History stack underflow! No actions to undo." << RESET << std::endl;
+                        cout << RED << "\n[Error] History stack underflow! No actions to undo." << endl;
                     } else {
-                        std::string popped = searchHistory.pop();
-                        std::cout << GREEN << "\n[✓] Undone last action: " << RESET << popped << std::endl;
+                        string popped = searchHistory.pop();
+                        cout << GREEN << "\n[✓] Undone last action: " << RESET << popped << endl;
                     }
                 } else if (subChoice == 3) {
                     searchHistory.clear();
-                    std::cout << GREEN << "\n[✓] Search history cleared." << RESET << std::endl;
+                    cout << GREEN << "\n[✓] Search history cleared." << RESET << endl;
                 }
                 pressEnter();
                 break;
@@ -369,45 +371,45 @@ int main() {
 
             case 5: { // Student Support Queue
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                CAMPUS SUPPORT TICKETS (QUEUE)               ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-                std::cout << "  [1] File a New Support Request" << std::endl;
-                std::cout << "  [2] Process Next Request (Admin Mode)" << std::endl;
-                std::cout << "  [3] View Current Queue Size" << std::endl;
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                CAMPUS SUPPORT TICKETS (QUEUE)               ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+                cout << "  [1] File a New Support Request" << endl;
+                cout << "  [2] Process Next Request (Admin Mode)" << endl;
+                cout << "  [3] View Current Queue Size" << endl;
                 printSeparator();
-                std::cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
+                cout << MAGENTA << "Select sub-option [1-3]: " << RESET;
 
                 int subChoice;
-                std::cin >> subChoice;
-                std::cin.ignore();
+                cin >> subChoice;
+                cin.ignore();
 
                 if (subChoice == 1) {
                     Request req;
                     req.id = ++requestCounter;
-                    std::cout << "Enter your Name: ";
-                    std::getline(std::cin, req.studentName);
-                    std::cout << "Enter issue details: ";
-                    std::getline(std::cin, req.issueDescription);
-                    std::cout << "Enter urgency (Low/Medium/High): ";
-                    std::getline(std::cin, req.urgency);
+                    cout << "Enter your Name: ";
+                    getline(cin, req.studentName);
+                    cout << "Enter issue details: ";
+                    getline(cin, req.issueDescription);
+                    cout << "Enter urgency (Low/Medium/High): ";
+                    getline(cin, req.urgency);
 
                     supportQueue.enqueue(req);
-                    std::cout << GREEN << "\n[✓] Request submitted successfully! Ticket ID: " << req.id << RESET << std::endl;
+                    cout << GREEN << "\n[✓] Request submitted successfully! Ticket ID: " << req.id << RESET << endl;
                 } else if (subChoice == 2) {
                     Request nextReq;
                     if (supportQueue.dequeue(nextReq)) {
-                        std::cout << GREEN << "\n[Processing Support Ticket]" << RESET << std::endl;
-                        std::cout << BOLD << "Ticket ID: " << RESET << nextReq.id << std::endl;
-                        std::cout << BOLD << "Student Name: " << RESET << nextReq.studentName << std::endl;
-                        std::cout << BOLD << "Issue: " << RESET << nextReq.issueDescription << std::endl;
-                        std::cout << BOLD << "Urgency: " << RESET << nextReq.urgency << std::endl;
-                        std::cout << GREEN << "[✓] Ticket processed and closed." << RESET << std::endl;
+                        cout << GREEN << "\n[Processing Support Ticket]" << RESET << endl;
+                        cout << BOLD << "Ticket ID: " << RESET << nextReq.id << endl;
+                        cout << BOLD << "Student Name: " << RESET << nextReq.studentName << endl;
+                        cout << BOLD << "Issue: " << RESET << nextReq.issueDescription << endl;
+                        cout << BOLD << "Urgency: " << RESET << nextReq.urgency << endl;
+                        cout << GREEN << "[✓] Ticket processed and closed." << RESET << endl;
                     } else {
-                        std::cout << YELLOW << "\nNo pending support tickets in queue." << RESET << std::endl;
+                        cout << YELLOW << "\nNo pending support tickets in queue." << RESET << endl;
                     }
                 } else if (subChoice == 3) {
-                    std::cout << GREEN << "\nTotal Pending Tickets: " << RESET << supportQueue.size() << std::endl;
+                    cout << GREEN << "\nTotal Pending Tickets: " << RESET << supportQueue.size() << endl;
                 }
                 pressEnter();
                 break;
@@ -415,55 +417,55 @@ int main() {
 
             case 6: { // Advanced Search & Sorting Module
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                 SORTING & SEARCHING MODULE                  ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
-                std::cout << "  [1] Sort Locations Alphabetically (QuickSort)" << std::endl;
-                std::cout << "  [2] Search Location Details (Binary Search)" << std::endl;
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                 SORTING & SEARCHING MODULE                  ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
+                cout << "  [1] Sort Locations Alphabetically (QuickSort)" << endl;
+                cout << "  [2] Search Location Details (Binary Search)" << endl;
                 printSeparator();
-                std::cout << MAGENTA << "Select sub-option [1-2]: " << RESET;
+                cout << MAGENTA << "Select sub-option [1-2]: " << RESET;
 
                 int subChoice;
-                std::cin >> subChoice;
-                std::cin.ignore();
+                cin >> subChoice;
+                cin.ignore();
 
                 // Extract locations from BST
-                std::vector<Location> locList = locationDirectory.getAllLocationsSorted();
+                vector<Location> locList = locationDirectory.getAllLocationsSorted();
 
                 if (subChoice == 1) {
-                    std::cout << YELLOW << "\nScrambling data order before sort to demonstrate QuickSort..." << RESET << std::endl;
+                    cout << YELLOW << "\nScrambling data order before sort to demonstrate QuickSort..." << RESET << endl;
                     // Scramble vector manually (simple reverse)
-                    std::reverse(locList.begin(), locList.end());
+                    reverse(locList.begin(), locList.end());
                     
-                    std::cout << "Before Sort (Reversed BST Output):" << std::endl;
+                    cout << "Before Sort (Reversed BST Output):" << endl;
                     for (const auto& loc : locList) {
-                        std::cout << "  - " << loc.name << " (" << loc.category << ")" << std::endl;
+                        cout << "  - " << loc.name << " (" << loc.category << ")" << endl;
                     }
 
                     // Apply QuickSort
                     Sorting::quickSortByName(locList, 0, (int)locList.size() - 1);
 
-                    std::cout << GREEN << "\nAfter QuickSort (A-Z):" << RESET << std::endl;
+                    cout << GREEN << "\nAfter QuickSort (A-Z):" << RESET << endl;
                     for (const auto& loc : locList) {
-                        std::cout << "  - " << loc.name << " (" << loc.category << ")" << std::endl;
+                        cout << "  - " << loc.name << " (" << loc.category << ")" << endl;
                     }
                 } else if (subChoice == 2) {
                     // QuickSort first to make sure it's sorted for Binary Search
                     Sorting::quickSortByName(locList, 0, (int)locList.size() - 1);
 
-                    std::string targetName;
-                    std::cout << "Enter Location Name to search via Binary Search: ";
-                    std::getline(std::cin, targetName);
+                    string targetName;
+                    cout << "Enter Location Name to search via Binary Search: ";
+                    getline(cin, targetName);
 
                     int idx = Sorting::binarySearchByName(locList, targetName);
                     if (idx != -1) {
-                        std::cout << GREEN << "\n[Match Found via Binary Search!]" << RESET << std::endl;
-                        std::cout << BOLD << "Name: " << RESET << locList[idx].name << std::endl;
-                        std::cout << BOLD << "Category: " << RESET << locList[idx].category << std::endl;
-                        std::cout << BOLD << "Description: " << RESET << locList[idx].description << std::endl;
-                        std::cout << BOLD << "Map ID: " << RESET << locList[idx].id << std::endl;
+                        cout << GREEN << "\n[Match Found via Binary Search!]" << RESET << endl;
+                        cout << BOLD << "Name: " << RESET << locList[idx].name << endl;
+                        cout << BOLD << "Category: " << RESET << locList[idx].category << endl;
+                        cout << BOLD << "Description: " << RESET << locList[idx].description << endl;
+                        cout << BOLD << "Map ID: " << RESET << locList[idx].id << endl;
                     } else {
-                        std::cout << RED << "\n[Error] Location not found!" << RESET << std::endl;
+                        cout << RED << "\n[Error] Location not found!" << endl;
                     }
                 }
                 pressEnter();
@@ -472,9 +474,9 @@ int main() {
 
             case 7: { // Display Map
                 clearScreen();
-                std::cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << std::endl;
-                std::cout << "║                 CAMPUS MAP ADJACENCY LIST                   ║" << std::endl;
-                std::cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << std::endl;
+                cout << CYAN << BOLD << "╔═════════════════════════════════════════════════════════════╗" << endl;
+                cout << "║                 CAMPUS MAP ADJACENCY LIST                   ║" << endl;
+                cout << "╚═════════════════════════════════════════════════════════════╝" << RESET << endl;
                 campusMap.printGraph();
                 pressEnter();
                 break;
@@ -482,12 +484,12 @@ int main() {
 
             case 8: // Exit
                 clearScreen();
-                std::cout << GREEN << BOLD << "\nThank you for using the Smart Campus Management System. Exiting...\n" << RESET << std::endl;
+                cout << GREEN << BOLD << "\nThank you for using the Smart Campus Management System. Exiting...\n" << RESET << endl;
                 return 0;
 
             default:
-                std::cout << RED << "\n[Error] Invalid choice! Please select 1-8." << RESET << std::endl;
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                cout << RED << "\n[Error] Invalid choice! Please select 1-8." << RESET << endl;
+                this_thread::sleep_for(milliseconds(1000));
                 break;
         }
     }

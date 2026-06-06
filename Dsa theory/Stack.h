@@ -3,10 +3,12 @@
 
 #include <string>
 
+using namespace std;
+
 struct StackNode {
-    std::string data;
+    string data;
     StackNode* next;
-    StackNode(const std::string& val) : data(val), next(nullptr) {}
+    StackNode(const string& val) : data(val), next(nullptr) {}
 };
 
 class Stack {
@@ -18,9 +20,9 @@ public:
     Stack();
     ~Stack();
 
-    void push(const std::string& item);
-    std::string pop();
-    std::string peek() const;
+    void push(const string& item);
+    string pop();
+    string peek() const;
     bool isEmpty() const;
     int size() const;
     void clear();

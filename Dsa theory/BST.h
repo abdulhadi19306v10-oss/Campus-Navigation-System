@@ -4,10 +4,12 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Location {
-    std::string name;
-    std::string description;
-    std::string category; // Academic, Admin, Cafeteria, Sports, etc.
+    string name;
+    string description;
+    string category; // Academic, Admin, Cafeteria, Sports, etc.
     int id;               // ID used in Graph vertices
 };
 
@@ -26,10 +28,10 @@ private:
     // Helper functions
     BSTNode* insertHelper(BSTNode* node, const Location& loc);
     BSTNode* findMin(BSTNode* node) const;
-    BSTNode* removeHelper(BSTNode* node, const std::string& name, bool& success);
-    BSTNode* searchHelper(BSTNode* node, const std::string& name) const;
+    BSTNode* removeHelper(BSTNode* node, const string& name, bool& success);
+    BSTNode* searchHelper(BSTNode* node, const string& name) const;
     void inorderHelper(BSTNode* node, void (*visit)(const Location&)) const;
-    void collectHelper(BSTNode* node, std::vector<Location>& list) const;
+    void collectHelper(BSTNode* node, vector<Location>& list) const;
     void clearHelper(BSTNode* node);
 
 public:
@@ -37,10 +39,10 @@ public:
     ~BST();
 
     void insert(const Location& loc);
-    bool remove(const std::string& name);
-    bool search(const std::string& name, Location& outLoc) const;
+    bool remove(const string& name);
+    bool search(const string& name, Location& outLoc) const;
     void inorderTraversal(void (*visit)(const Location&)) const;
-    std::vector<Location> getAllLocationsSorted() const;
+    vector<Location> getAllLocationsSorted() const;
     bool isEmpty() const;
     int size() const;
     void clear();

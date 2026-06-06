@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Edge {
     int destId;
     double weight;
@@ -13,10 +15,10 @@ struct Edge {
 
 struct VertexNode {
     int id;
-    std::string name;
+    string name;
     Edge* edgeHead;
     VertexNode* next;
-    VertexNode(int i, const std::string& n) : id(i), name(n), edgeHead(nullptr), next(nullptr) {}
+    VertexNode(int i, const string& n) : id(i), name(n), edgeHead(nullptr), next(nullptr) {}
 };
 
 class Graph {
@@ -31,21 +33,21 @@ public:
     Graph();
     ~Graph();
 
-    void addVertex(int id, const std::string& name);
+    void addVertex(int id, const string& name);
     void addEdge(int srcId, int destId, double weight);
     bool removeEdge(int srcId, int destId);
     bool removeVertex(int id);
     
     bool hasVertex(int id) const;
-    std::string getVertexName(int id) const;
-    int getVertexId(const std::string& name) const;
+    string getVertexName(int id) const;
+    int getVertexId(const string& name) const;
     int getVertexCount() const;
-    std::vector<std::pair<int, std::string>> getVerticesList() const;
+    vector<pair<int, string>> getVerticesList() const;
 
-    bool dijkstra(int srcId, int destId, std::vector<int>& path, double& totalDistance) const;
-    void bfs(int startId, std::vector<int>& visitedOrder) const;
-    void dfs(int startId, std::vector<int>& visitedOrder) const;
-    void dfsHelper(int currId, std::vector<int>& visitedOrder, std::vector<bool>& visited, const std::vector<int>& allIds) const;
+    bool dijkstra(int srcId, int destId, vector<int>& path, double& totalDistance) const;
+    void bfs(int startId, vector<int>& visitedOrder) const;
+    void dfs(int startId, vector<int>& visitedOrder) const;
+    void dfsHelper(int currId, vector<int>& visitedOrder, vector<bool>& visited, const vector<int>& allIds) const;
     
     void printGraph() const;
     void clear();

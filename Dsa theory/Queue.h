@@ -3,11 +3,13 @@
 
 #include <string>
 
+using namespace std;
+
 struct Request {
     int id;
-    std::string studentName;
-    std::string issueDescription;
-    std::string urgency; // Low, Medium, High
+    string studentName;
+    string issueDescription;
+    string urgency; // Low, Medium, High
 };
 
 struct QueueNode {
