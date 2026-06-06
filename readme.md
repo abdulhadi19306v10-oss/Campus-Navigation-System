@@ -36,6 +36,26 @@ This system showcases the practical application of multiple key computer science
 
 ---
 
+## 🧠 Architectural Rationale: Why These Data Structures & Algorithms?
+
+Below is a detailed breakdown of why each specific data structure and algorithm was selected, along with its time/space complexity and practical relevance:
+
+| Data Structure / Algorithm | Practical Purpose | Architectural Rationale & Why It Is Used | Time Complexity | Space Complexity |
+| :--- | :--- | :--- | :--- | :--- |
+| **Graph (Adjacency List)** | Campus Map | Represents physical locations (vertices) and path connections (edges). The map is **sparse** (each building is only connected to a few nearby landmarks). An Adjacency List is chosen over a matrix because it saves memory ($O(V + E)$ vs $O(V^2)$) and speeds up neighbor iteration. | *Iteration:* $O(\text{deg}(V))$ | $O(V + E)$ |
+| **Dijkstra's Algorithm** | Shortest Pathfinding | Guaranteed to find the mathematically shortest path between two vertices in a weighted graph with positive weights (representing distances in meters). | $O(V^2)$ *(simpl. array)* | $O(V)$ |
+| **Breadth-First Search (BFS)** | Graph Traversal | Traverses the campus layer-by-layer. This is ideal for finding landmarks within $k$ hops/steps (shortest path on unweighted edges) or finding closest services first. | $O(V + E)$ | $O(V)$ |
+| **Depth-First Search (DFS)** | Graph Traversal | Explores deep along each path branch. Excellent for validating overall network connectivity, finding loops, or solving maze-like routing structures. | $O(V + E)$ | $O(V)$ |
+| **Binary Search Tree (BST)** | Alphabetical Directory | Maintains the locations list sorted alphabetically at all times. Ideal when users require range queries (e.g., retrieving items starting with 'A' through 'D') and sorted traversals. | *Average:* $O(\log n)$<br>*Worst:* $O(n)$ | $O(n)$ |
+| **In-Order Traversal** | Directory Printing | Traverses the left subtree, the root, and then the right subtree of the BST. This naturally prints the directory in alphabetical order without sorting overhead. | $O(n)$ | $O(h)$ *(stack)* |
+| **Hash Table (Chaining)** | Fast Detail Lookup | Provides immediate $O(1)$ access to building descriptions, opening hours, and room codes by hashing the building name. While a BST takes $O(\log n)$ to search, a Hash Table ensures instant lookup. | *Average:* $O(1)$<br>*Worst:* $O(n)$ | $O(n)$ |
+| **Stack (LIFO)** | History / Undo Stack | Stores user activity. Since the last action performed is the first action that should be reversed/undone, the Last-In, First-Out (LIFO) property of a Stack fits this requirement perfectly. | $O(1)$ | $O(n)$ |
+| **Queue (FIFO)** | Student Support Tickets | Implements the First-In, First-Out (FIFO) ticketing system. Requests must be resolved fairly in the exact order they were submitted, making a Queue the standard data structure. | $O(1)$ | $O(n)$ |
+| **QuickSort** | Dynamic Sorting | Utilizes divide-and-conquer to sort location vectors. Highly efficient in practice and sorts the array in-place, avoiding the high memory overhead of Merge Sort. | *Average:* $O(n \log n)$<br>*Worst:* $O(n^2)$ | $O(\log n)$ *(stack)* |
+| **Binary Search** | Logarithmic Searching | Searches for a specific location inside a sorted array. Eliminates half of the search space in each iteration, running in logarithmic time vs $O(n)$ linear search. | $O(\log n)$ | $O(1)$ |
+
+---
+
 ## 📁 File Structure
 
 ```text
